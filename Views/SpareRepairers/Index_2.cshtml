@@ -1,0 +1,345 @@
+﻿@model IEnumerable<BIRC.Models.Entities.SpareRepairer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h3 style="opacity:0,4; color:#808080" class="text-center">List of Unproductive</h3>
+<hr />
+
+
+<!--Buttons-->
+<div style="display:inline-block">
+    <a asp-action="SpareMenu" asp-controller="SpareParts" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Create" class="btn btn-primary">Insert a new item</a>
+</div>
+<!--Message after Update-->
+<div id="messageStatus" class="alert alert-success" role="alert" style="display: none;" messageAlert>
+    <span message></span>
+</div>
+
+<hr />
+
+<!--Table List-->
+<div class="table-responsive-md" style="">
+    <table border="1" class="table table-sm table-hover border">
+        <thead>
+            <tr class="text-center bg-primary" style="color:white; white-space:nowrap">
+                <th>
+                    #
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescProduct)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StorageBin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DtIn)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.DtValidate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurchaseOrder)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitMeasure)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeOperation)
+                </th>
+                <td hidden>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </td>
+
+                <th style="white-space:nowrap">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="white-space:nowrap; text-transform: uppercase; font-size:13px;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescProduct)
+                    </td>
+                    <td item-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StorageBin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DtIn)
+                    </td>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem => item.DtValidate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseOrder)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitMeasure)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeOperation)
+                    </td>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td style="white-space:nowrap">
+                        <button class="btn btn-warning fas fa-minus" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'minus')" asp-action="Edit" asp-route-id="@item.Id"></button> |
+                        <button class="btn btn-primary fas fa-plus" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'plus')" asp-action="Edit" asp-route-id="@item.Id"></button> |
+                        <button class="btn btn-dark fas fa-pencil-alt" data-toggle="modal" data-target="#examplemodalcenter" onclick="edit(this,'edit')" asp-action="edit" asp-route-id="@item.Id"></button>
+                       
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+@using (Html.BeginForm("Edit", "SpareRepairer", FormMethod.Post))
+{
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Quantity Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="value" type="text" name="value" class="form-control" hidden />
+                    <input id="typeedtion" type="text" class="form-control" hidden />
+
+                    <div class="form-group" hidden>
+                        <label class="control-label">Id</label>
+                        <input id="id" type="text" name="id" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Product Name</label>
+                        <input id="partNumber" type="text" name="partNumber" class="form-control" readonly />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <input id="description" type="text" name="description" class="form-control" readonly />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="inputvalue">Quantity</label>
+                        <input name="quantity" type="number" class="form-control" id="quantity" value="0" max="100" min="0" AlertQuantity>
+                        <div class="invalid-feedback">
+                            The value is greater than current inventory.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Purchase Order</label>
+                        <input id="po" type="number" name="po" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Location</label>
+                        <input id="location" type="text" name="location" class="form-control" readonly />
+                        @*<select id="listlocation" class="custom-select" readonly>
+                    <option selected>Select Location...</option>
+                    @foreach (var item in ViewBag.elements)
+                    {
+                    <option>
+                    @item
+                    </option>
+                    }
+                    </select>*@
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Date In</label>
+                        <input id="dtIn" type="text" name="dtIn" class="form-control" readonly />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Insert ID</label>
+                            <input type="text" class="form-control" id="userId" placeholder="Insert ID" idAlert style="text-transform:uppercase" maxlength="7" minlength="7" required />
+                            <div class="invalid-feedback">
+                                Please, insert your ID.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" hidden>
+                        <label class="control-label">dtValidate</label>
+                        <input id="dtValidate" type="text" name="dtvalidate" class="form-control" />
+                    </div>
+
+                    <div class="form-group" hidden>
+                        <input id="unitMeasure" type="text" name="unitMeasure" class="form-control" />
+                    </div>
+
+                    <div class="form-group" hidden>
+                        <input id="typeOperation" type="text" name="typeOperation" class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="btnSave" type="button" onclick="SaveElement()" class="btn btn-primary">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+     
+    function Edit(e, typeEdtion) {
+        var line = $(e).closest("tr");
+        var partNumber = line.find("td:eq(1)").text().trim();
+        var description = line.find("td:eq(2)").text().trim();
+        //var quantity = line.find("td:eq(2)").text().trim();
+        var location = line.find("td:eq(4)").text().trim();
+        var id = line.find("td:eq(0)").text().trim();
+        var value = line.find("td:eq(3)").text().trim();
+        var po = line.find("td:eq(7)").text().trim();
+        var unitMeasure = line.find("td:eq(8)").text().trim();
+        var typeOperation = line.find("td:eq(9)").text().trim();
+        var dtIn = line.find("td:eq(5)").text().trim();
+        var dtValidate = line.find("td:eq(6)").text().trim();
+        var userId = line.find("td:eq(10)").text().trim();
+
+
+        //remove o ID digitado e a Validação
+        document.getElementById('userId').value = "";
+        $('[idAlert]').removeClass("is-invalid");
+
+        document.getElementById('quantity').value = "";
+        $('[AlertQuantity]').removeClass("is-invalid");
+
+
+
+
+        //Valida se o botão EDIT foi clicado
+        let fieldLocation = document.getElementById('location').readOnly;
+        if (typeEdtion === "edit") {
+            console.log('Entrei no primeiro If');
+            if (fieldLocation === true) {
+                console.log('Entrei no segundo If');
+                document.getElementById('location').removeAttribute('readonly');
+            }
+        } else {
+            document.getElementById('location').readOnly = true;
+        }
+
+        $("#unitMeasure").val(unitMeasure);
+        $("#typeOperation").val(typeOperation);
+        $("#partNumber").val(partNumber);
+        $("#description").val(description);
+        $("#quantity").val(0);
+        $("#location").val(location);
+        $("#po").val(po);
+        $("#typeedtion").val(typeEdtion);
+        $("#id").val(id);
+        $("#value").val(value);
+        $("#dtIn").val(dtIn);
+        $("#dtValidate").val(dtValidate);
+        $("#userId").val(userId);
+    }
+
+    function SaveElement() {
+
+        let data = CreateElement();
+        let url = "/SpareRepairers/Edit";
+        console.log(data);
+        let qtyFormated = 0;
+        if (parseInt(data.Quantity) > parseInt(data.Value) && data.TypeEdtion === "minus") {
+            $('[AlertQuantity]').addClass("is-invalid");
+            return;
+        }
+        else {
+            document.getElementById('quantity').value = 0;
+            $('AlertQuantity').removeClass("is-invalid");
+        }
+
+
+        if (data.TypeEdtion === "minus")
+            qtyFormated = parseInt(data.Value) - parseInt(data.Quantity);
+        else
+            qtyFormated = parseInt(data.Value) + parseInt(data.Quantity);
+
+
+        let saveUser = $('#userId').val();
+        console.log(saveUser)
+        if (saveUser != "") {
+            $.post(url, data, function (resp) {
+                let itemId = "[item-id=" + data.Id + "]";
+                $(itemId).html(qtyFormated);
+                $('[message]').html("Successfully Update");
+                $('[messageAlert]').addClass("show");
+                $('.modal').modal('hide');
+                $('#messageStatus').show();
+                setTimeout(function () {
+                    $('#messageStatus').hide();
+                }, 3500);
+            }).fail(function (error) {
+                $('[messageAlert]').removeClass("alert-success").addClass("alert-warning").addClass("show");
+                $('[message]').html("Erro ao editar" + error.responseText)
+                $('#messageStatus').show();
+                setTimeout(function () {
+                    $('#messageStatus').hide();
+                }, 3500);
+            });
+        }
+        else {
+            $('[idAlert]').addClass("is-invalid")
+        }
+    }
+
+    //window.location.reload();
+
+    function CreateElement() {
+
+        return {
+            UnitMeasure: $("#unitMeasure").val(),
+            TypeOperation: $("#typeOperation").val(),
+            PartNumber: $("#partNumber").val(),
+            Description: $("#description").val(),
+            Quantity: $("#quantity").val(),
+            Location: $("#location").val(),
+            Id: $("#id").val(),
+            Value: $("#value").val(),
+            Po: $("#po").val(),
+            TypeEdtion: $("#typeedtion").val(),
+            DtIn: $("#dtIn").val(),
+            DtValidate: $("#dtValidate").val(),
+            TypeEdtion: $("#typeedtion").val(),
+            userId: $("#userId").val(),
+        };
+    }
+</script>}

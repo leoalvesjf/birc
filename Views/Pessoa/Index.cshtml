@@ -1,0 +1,158 @@
+﻿@model IEnumerable<BIRC.Models.Entities.Pessoa>
+
+@{
+    ViewData["Title"] = "Pessoas";
+}
+
+<h3 style="opacity:0,4; color:#808080" class="text-center">@ViewData["Title"]</h3>
+
+<hr />
+<!--Message after Update-->
+<div id="messageStatus" class="alert alert-success" role="alert" style="display: none;" messageAlert><span message></span></div>
+<!--Table List-->
+<div class="table-responsive-md" style="">
+    <table id="myTable" border="1" class="table table-sm table-hover border">
+        <thead>
+            <tr class="text-center bg-primary" style="color:white;white-space:nowrap">
+
+                <th hidden>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                <th>@Html.DisplayNameFor(model => model.Idade)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="white-space:nowrap; text-transform: uppercase; font-size:13px;">
+
+                    <td hidden>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td border>
+                        @Html.DisplayFor(modelItem => item.Nome)</td>
+                    <td >@Html.DisplayFor(modelItem => item.Idade)</td>
+                       
+                    <td style="white-space:nowrap">
+                        <button class="btn btn-warning fas fa-minus" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'minus')" asp-action="EditItem" asp-route-id="@item.Id"></button> |
+                        <button class="btn btn-primary fas fa-plus" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'plus')" asp-action="EditItem" asp-route-id="@item.Id"></button> |
+                        <button class="btn btn-dark fas fa-pencil-alt" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'edit')" asp-action="EditItem" asp-route-id="@item.Id"></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@using (Html.BeginForm("EditItem", "SpareParts", FormMethod.Post))
+{
+   @* <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#staticBackdrop3">
+        Launch modal subscription form
+    </button>*@
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+        <div class="modal-dialog d-flex justify-content-center">
+            <div class="modal-content w-75">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lebelTitle">PESSOAS</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form>
+                        <!-- ID input -->
+                        <div class="form-outline mb-4"  >
+                            <input type="text" id="idPessoa" class="form-control" />
+                            <label class="form-label" for="idPessoa">ID</label>
+                        </div>
+
+                        <!-- NOME input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" id="nome" class="form-control" readonly />
+                            <label class="form-label" for="nome">Nome</label>
+                        </div>
+
+                        <!-- IDADE input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" id="idade" class="form-control" readonly />
+                            <label class="form-label" for="idade">Idade</label>
+                        </div>
+                        
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+}
+
+@*<script src="~/js/PessoaValidation.js"></script><!-- Valida o formulario - config DataTable-->*@
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
+
+       // =======================Madal====================================== 
+
+        var myModal = document.getElementById('modal')
+        var myInput = document.getElementById('')
+
+        myModal.addEventListener('shown.bs.modal', function () {
+            myInput.focus()
+        })
+
+        function Edit(e,typeEdition)
+        {
+                   
+            let line = $(e).closest("tr");
+
+            let idPessoa =line.find("td:eq(0)").text().trim();
+            let nome= line.find("td:eq(1)").text().trim();
+            let idade = line.find("td:eq(3)").text().trim();
+            //Valida se o botão EDIT foi clicado
+            let fieldLocation = document.getElementById('nome').readOnly;
+            
+            if(typeEdition==="Edit"){
+
+                if(fieldLocation===true)
+                {
+                    document.getElementById(nome).removeAttribute('readonly');
+                }else{
+                    document.getElementById('nome').ariaReadOnly=true;
+                }
+            }
+
+            $("#idPessoa").val(partNumber);
+            $("#nome").val(nome);
+            $("#idade").val(0);
+
+            //Save
+
+
+
+            //create
+            function CreateElement()
+            {
+                return
+                {
+                    idPessoa:$("#idPessoa").val(),
+                    Nome:$("#nome").val(),
+                    Idade:$("#idade").val(),
+                 
+                };
+            }
+
+
+
+
+
+       }
+
+
+    </script>
+}

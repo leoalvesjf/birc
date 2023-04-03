@@ -1,0 +1,111 @@
+﻿@model BIRC.Models.Entities.SpareRepairer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h2>Register new item</h2>
+<hr />
+
+<form asp-for="Create" method="post">
+    <div class="form-row">   
+        <div class="col-md-4 mb-3">
+            <label asp-for="ProductName" class="control-label"></label>
+            <input asp-for="ProductName" class="form-control" required />
+            <span asp-validation-for="ProductName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="DescProduct" class="control-label"></label>
+            <input asp-for="DescProduct" class="form-control" required />
+            <span asp-validation-for="DescProduct" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label asp-for="Quantity" class="control-label"></label>
+            <input asp-for="Quantity" type="number" class="form-control" maxlength="10" min="0" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-2 mb-3">
+            <label asp-for="minimumQuantity" class="control-label"></label>
+            <input asp-for="minimumQuantity" type="number" class="form-control" maxlength="10" min="0" />
+            <span asp-validation-for="minimumQuantity" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+
+            <label asp-for="StorageBin" class="control-label"> </label>
+            <select id="listlocation" asp-for="StorageBin" class="custom-select" required>
+                <option selected>Select Location...</option>
+                <option>ARMARIO A1</option>
+                <option>ARMARIO A2</option>
+                <option>ARMARIO PEQUENO TV</option>
+                <option>ARMARIO REPARADORAS</option>
+                <option>PALETE</option>              
+            </select>    
+           
+        </div>
+        <span asp-validation-for="StorageBin" class="text-danger"></span>
+
+        <div class="col-md-3 mb-3">
+            <label asp-for="DtIn" class="control-label">Incoming</label>
+            <input asp-for="DtIn" class="form-control" required />
+            <span asp-validation-for="DtIn" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label asp-for="DtValidate" class="control-label"></label>
+            <input asp-for="DtValidate" class="form-control" />
+            <span asp-validation-for="DtValidate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="PurchaseOrder" class="control-label"></label>
+            <input asp-for="PurchaseOrder" type="number" class="form-control" max="99999999999" min="0" />
+            <span asp-validation-for="PurchaseOrder" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <label asp-for="TypeOperation" class="control-label"> </label>
+            <select asp-for="TypeOperation" class="custom-select" required>
+                <option selected>Select Option...</option>
+
+                <option>BUY</option>
+                <option>BORROWOWED</option>
+                <option>DONATE</option>
+
+            </select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <label asp-for="UnitMeasure" class="control-label"> </label>
+            <select asp-for="UnitMeasure" class="custom-select" required>
+                <option selected>Select Option...</option>
+
+                <option>UNIT</option>
+                <option>PACKAGE</option>
+                <option>LITER</option>
+
+            </select>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+</form>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>\\Brsj000828\c$\TESTE</_PublishTargetUrl>
+    <History>True|2021-05-27T18:40:26.7720157Z;True|2021-05-27T15:39:04.7155183-03:00;True|2021-05-27T15:38:36.3987988-03:00;True|2021-05-27T15:38:20.0035620-03:00;True|2021-05-27T15:32:59.7196062-03:00;</History>
+  </PropertyGroup>
+</Project>

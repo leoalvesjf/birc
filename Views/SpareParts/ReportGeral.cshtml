@@ -1,0 +1,35 @@
+﻿@model BIRC.ViewModels.ReportGeralViewModel
+@{
+    ViewData["Title"]="Reports All";
+}
+<h3 style="color:black">@ViewData["Title"]</h3>
+<hr />
+
+<div class="row">
+    <div class="divbtn">
+        <a class="btnreport btn1 form-control" style="text-decoration:none" asp-action="Csv" asp-controller="SpareChemical">Chemical</a>
+    </div>
+
+    <div class="divbtn">
+        <a class="btnreport btn2 form-control" style="text-decoration:none" asp-action="Csv" asp-controller="SpareParts">Stations</a>
+    </div>
+
+    <div class ="divbtn">
+        <a class="btnreport btn3 form-control " style="text-decoration:none" asp-action="Csv" asp-controller="SpareRepairers">Unproductive</a>
+    </div>    
+   
+    <div class="divbtn">
+        <a class="btnreport btn4 form-control" style="text-decoration:none" asp-action="Csv" asp-controller="SpareOffice"> Office</a>
+    </div >
+
+    <div class="divbtn">
+        <a class="btnreport btn5 form-control" style="text-decoration:none" asp-action="Csv" asp-controller="LogUpdate">Report Geral</a>
+    </div>   
+</div>
+<hr />
+<div style="padding-top:10px">
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back to List</a>
+</div>
+
+
+

@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "Spare Menu";
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
+
+<h3 style="opacity:0,4; color:#808080" class="text-center">RCB ADVANCE MANAGMENT</h3>
+
+<div style="display:inline-block">
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to List</a>
+   
+</div>
+
+<hr />
+<br />
+
+
+<div class="row">
+    <div class="col-lg-3">
+        <a asp-action="Index" asp-controller="SpareChemical" style="text-decoration:none" class="align-content-center">
+            <div class="card" style="height:200px">
+                <div class="card-body">
+                    <h3 style="text-align:center">Chemical </h3>
+                    <div style="text-align:center" class="card-body">
+                        <i class="fas fa-flask" id="icon"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3">     
+        <a asp-action="Index" asp-controller="SpareParts" style="text-decoration:none" class="align-content-center">
+            <div class="card1" style="height:200px">
+                <div class="card-body">
+                    <h3 style="text-align:center">Stations</h3>
+                    <div style="text-align:center" class="card-body">
+                        <i id="icon" class="fas fa-server"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3">
+        <a asp-action="Index" asp-controller="SpareRepairers" style="text-decoration:none" class="align-content-center">
+            <div class="card2" style="height:200px">
+                <div class="card-body">
+                    <h3 style="text-align:center">Unproductive</h3>
+                    <div style="text-align:center" class="card-body">
+                        <i id="icon" class="fas fa-microscope"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3">
+        <a asp-action="Index" asp-controller="SpareOffice" style="text-decoration:none" class="align-content-center">
+            <div class="card3" style="height:200px">
+                <div class="card-body">
+                    <h3 style="text-align:center">Office</h3>
+                    <div style="text-align:center" class="card-body">
+                        <i id="icon" class="fas fa-laptop"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+

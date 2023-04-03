@@ -1,0 +1,165 @@
+﻿@model IEnumerable<BIRC.Models.Entities.SpareChemical>
+@{
+    ViewData["Title"] = "List Spare Chemical";
+}
+<h3 style="opacity:0,4; color:#808080" class="text-center">@ViewData["Title"]</h3>
+<hr />
+<!--Buttons-->
+<div style="display:inline-block">
+    <a asp-action="SpareMenu" asp-controller="SpareParts" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Create" class="btn btn-primary">Insert a new item</a>
+</div>
+
+<hr />
+
+<div id="messageStatus" class="alert alert-success" role="alert" style="display: none;" messageAlert><span message></span></div>
+<!--Message after Update-->
+<div style="display: flex; justify-content: center; align-items: center;">
+<div class="table-responsive-md">
+    <table id="myTable" border="1" class="table table-sm table-hover border">
+        <thead>
+            <tr class="text-center bg-primary" style="color:white;white-space:nowrap">
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th border>@Html.DisplayNameFor(model => model.ProductName)</th>
+                <th>@Html.DisplayNameFor(model => model.DescProduct)</th>
+                <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                <th>@Html.DisplayNameFor(model => model.StorageBin)</th>
+                <th>@Html.DisplayNameFor(model => model.DtIn)</th>
+                <th>@Html.DisplayNameFor(model => model.DtValidate)</th>
+                <th>@Html.DisplayNameFor(model => model.PurchaseOrder)</th>
+                <th>@Html.DisplayNameFor(model => model.UnitMeasure)</th>
+                <th>@Html.DisplayNameFor(model => model.TypeOperation)</th>
+                <th>@Html.DisplayNameFor(model => model.localUsed)</th>
+                <th >@Html.DisplayNameFor(model => model.UserId)
+                <th >@Html.DisplayNameFor(model => model.minimumQuantity)</th>
+             
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="white-space:nowrap; text-transform: uppercase; font-size:13px;">
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td><!--0-->
+                    <td>@Html.DisplayFor(modelItem => item.ProductName)</td><!--1-->
+                    <td>@Html.DisplayFor(modelItem => item.DescProduct)</td><!--2-->
+                    <td item-id="@item.Id">@Html.DisplayFor(modelItem => item.Quantity)</td><!--3-->
+                    <td>@Html.DisplayFor(modelItem => item.StorageBin)</td><!--4-->
+                    <td>@Html.DisplayFor(modelItem => item.DtIn)</td><!--5-->
+                    <td>@Html.DisplayFor(modelItem => item.DtValidate)</td><!--6-->
+                    <td>@Html.DisplayFor(modelItem => item.PurchaseOrder)</td><!--7-->
+                    <td>@Html.DisplayFor(modelItem => item.UnitMeasure)</td><!--8-->
+                    <td>@Html.DisplayFor(modelItem => item.TypeOperation)</td><!--9-->
+                    <td >@Html.DisplayFor(modelItem => item.localUsed)</td><!--10-->
+                    <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.minimumQuantity)</td><!--11-->
+                    <td style="white-space:nowrap">
+                        <button class="btn btn-warning fas fa-minus" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'minus')" asp-action="EditItem" asp-route-id="@item.Id"></button> |
+                        <button class="btn btn-primary fas fa-plus" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'plus')" asp-action="EditItem" asp-route-id="@item.Id"></button> |
+                        <button class="btn btn-dark fas fa-pencil-alt" data-toggle="modal" data-target="#exampleModalCenter" onclick="Edit(this,'edit')" asp-action="EditItem" asp-route-id="@item.Id"></button>
+                    </td>
+               </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</div>
+
+@using (Html.BeginForm("Edit", "SpareChemical", FormMethod.Post))
+{
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="value" type="text" name="value" class="form-control" hidden />
+                    <input id="typeedtion" type="text" class="form-control" hidden />
+                    <div class="form-group" hidden>
+                        <label class="control-label">Id</label>    <!--  0 -->
+                        <input id="id" type="text" name="id" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Product Name</label><!--  1 -->
+                        <input id="partNumber" type="text" name="partNumber" value="" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Description</label><!--  2 -->
+                        <input id="description" type="text" name="description" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputvalue">Quantity</label><!--  3 -->
+                        <input name="quantity" type="number" class="form-control" id="quantity" value="0" max="1000" min="0"/> <!--Criar logica de habilita e desabilitar campo-->
+                        <div class="invalid-feedback">
+                            The value is greater than current inventory.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Date Input</label><!--  4 -->
+                        <input id="dtIn" type="text" name="dtIn" class="form-control" readonly/>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="control-label">Date Validate</label><!--   -->
+                        <input id="dtValidate" type="text" name="dtvalidate" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Unit Measure</label><!--   -->
+                        <input id="unitMeasure" type="text" name="unitMeasure" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Purchase Order</label><!--  4 -->
+                        <input id="po" type="text" name="po" class="form-control" readonly/>
+                    </div>
+                    <!--Location-->
+                    <div class="form-group">
+                        <label class="control-label">Location</label><!-- 5 -->
+                        <input id="location" type="text" name="location" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Type Operation</label><!--  10 -->
+                        <input id="typeOperation" type="text" name="typeOperation" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Local Used</label><!--  9 -->
+                        <input id="localUsed" type="text" name="localUsed" class="form-control" placeholder="To Allocate" readonly />
+                    </div>
+                    <!--ID-->
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Insert ID</label>
+                            <input type="text" class="form-control" id="userId" placeholder="User ID" idAlert style="text-transform:uppercase" maxlength="7" minlength="7" required /><!--  11 -->
+                            <div class="invalid-feedback"> Please, insert your sgnium ID.</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputvalue">Minimum Quantity</label><!--  3 -->
+                        <input type="text"  class="form-control" id="minimumQuantity"  /> <!--Este campo sera usado para criar logica de comparação para nova ordem compra.-->
+                    </div>
+                </div><!--Fim div Modal-->
+                <div class="modal-footer">
+                    <button id="btnSair" onclick="refreshPage()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="btnSave" type="button" onclick="SaveElement()" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/js/SpareChemicalValidation.js"></script><!-- Valida o formulario-->
+
+@section Scripts
+    {
+    <script>
+        
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+

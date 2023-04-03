@@ -1,0 +1,69 @@
+﻿@model BIRC.Models.Entities.SpareRepairer
+
+@{
+    ViewData["Title"] = "Teste";
+}
+
+<h1>Edit</h1>
+
+<h4>SpareRepairer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Teste" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DescProduct" class="control-label"></label>
+                <input asp-for="DescProduct" class="form-control" />
+                <span asp-validation-for="DescProduct" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StorageBin" class="control-label"></label>
+                <input asp-for="StorageBin" class="form-control" />
+                <span asp-validation-for="StorageBin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DtIn" class="control-label"></label>
+                <input asp-for="DtIn" class="form-control" />
+                <span asp-validation-for="DtIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DtValidate" class="control-label"></label>
+                <input asp-for="DtValidate" class="form-control" />
+                <span asp-validation-for="DtValidate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseOrder" class="control-label"></label>
+                <input asp-for="PurchaseOrder" class="form-control" />
+                <span asp-validation-for="PurchaseOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitMeasure" class="control-label"></label>
+                <input asp-for="UnitMeasure" class="form-control" />
+                <span asp-validation-for="UnitMeasure" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeOperation" class="control-label"></label>
+                <input asp-for="TypeOperation" class="form-control" />
+                <span asp-validation-for="TypeOperation" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

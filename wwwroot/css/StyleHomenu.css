@@ -1,0 +1,148 @@
+﻿#load {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 9999;
+    background: url("loading.gif") no-repeat center center rgba(255,255,255,255);
+}
+
+a{text-decoration:none;}
+
+#icon {
+    margin-top: 20px;
+    font-size: 30px;
+    color: #ffffff
+}
+
+.card {
+    background-color: #0082f0;
+}
+
+.card1 {
+    background-color: #ff6a00;
+}
+
+.card2 {
+    background-color: #fad22d;
+}
+
+.card3 {
+    background-color: #02a913;
+}
+
+.card4 {
+    background-color: #808080;
+}
+
+.card:hover {
+    /* border-color: #ffffff;*/
+    border-width: 5px;
+    border-style: solid;   
+}
+
+.card1:hover {
+    border-color: lightgrey;
+    border-width: 5px;
+    border-style: solid;
+}
+
+.card2:hover {
+    /* border-color: #ffffff;*/
+    border-width: 5px;
+    border-style: solid;
+}
+
+.card3:hover {
+    /* border-color: #ffffff;*/
+    border-width: 5px;
+    border-style: solid;
+}
+.card4:hover {
+    background-color: #808080;
+    border-width: 5px;
+    border-style: solid;
+}
+#te {
+    font-size: 50px;
+    color: azure;
+    align-content: center;
+}
+
+h3 {
+    font-size: 20px;
+    color:#ffffff
+}
+
+.tbody {
+    font-size: 4px;
+    text-transform: uppercase;
+}
+
+.container-md {
+    max-width: max-content;
+}
+
+.form-row input {
+    text-transform: uppercase;
+}
+
+
+.divbtn{
+    display:inline;
+    margin:0.2em;
+}
+
+
+
+.btnreport{
+width:200px;
+height:90px;
+border:solid 1px #808080;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+.btnreport,a {
+    padding-top: 20px;
+    text-decoration:none;
+    color:#ffffff;
+}
+
+.btn1 {
+    background: #0082f0;
+}
+.btn2 {
+    background: #ff6a00;
+}
+.btn3 {
+    background: #fad22d;
+}
+.btn4 {
+    background: #02a913;
+}
+.btn5 {
+    background: #000000;
+}
+
+/*efeito hover*/
+.btn1:hover {
+    background: #11e9f7;
+}
+
+.btn2:hover {
+    background: #ff6a00;
+}
+
+.btn3:hover {
+    background: #f7f44f;
+}
+
+.btn4:hover {
+    background: #72f84b;
+}
+
+.btn5:hover {
+    background: #808080;
+}
+

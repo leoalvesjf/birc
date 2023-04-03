@@ -1,0 +1,107 @@
+﻿@model IEnumerable<BIRC.Models.Entities.LogUpdate>
+@{
+    ViewData["Title"] = "View Log Report";
+}
+
+<h3 style="opacity:0,4; color:#808080" class="text-center">Stock Movement</h3>
+<hr />
+
+<div style="display:inline-block">
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to List</a>
+</div>
+
+<div id="messageStatus" class="alert alert-success" role="alert" style="display: none;" messageAlert>
+    <span message></span>
+</div>
+
+<hr class="container" />
+
+<div class="table-responsive-md" style="">
+    <table border="1" class="table table-sm table-hover border">
+        <thead>
+            <tr class="text-center bg-primary" style="color:white;white-space:nowrap">
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>                
+                <th>
+                    @Html.DisplayNameFor(model => model.Alteration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.minimumQuantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeEdtion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModelAlteration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CurrentBalance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LocalUsed)
+                </th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr style="white-space:nowrap; text-transform: uppercase; font-size:13px;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Alteration)
+                    </td>
+                    <td style="white-space:nowrap">
+                        @Html.DisplayFor(modelItem => item.Product)
+                    </td>
+                    <td item-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.minimumQuantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeEdtion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModelAlteration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentBalance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LocalUsed)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<br/>
+<form asp-action="Export" asp-controller="SpareParts" class="form-inline" method="post">   
+
+    <div class="form-group report">
+        <input type="submit" class="btn btn-primary" value="Get Report" />
+    </div>
+
+</form>
+
